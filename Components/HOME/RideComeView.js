@@ -7,14 +7,14 @@ import MapViewDirections from 'react-native-maps-directions';
 
 
 //changing linkage imports starts here.....
-import Color from '../Constants/Colors';
-import MapKey from '../Constants/Maps';
-import ShrinkingButton from '../Reusable/ShrinkingButton';
+import Color from '../../Constants/Colors';
+import MapKey from '../../Constants/Maps';
+import ShrinkingButton from '../../Reusable/ShrinkingButton';
 //changing linkage imports ends here.......
 
 
 
-const Testing=(props)=>{
+const RiderComeView=(props)=>{
 
     //use selector starts here......
     const latitude_RP=useSelector(state=>state.request.latitude);
@@ -22,7 +22,6 @@ const Testing=(props)=>{
     const vendor_RP=useSelector(state=>state.request.vendor);
     const buyer_RP=useSelector(state=>state.request.buyer);
     const distance_RP=useSelector(state=>state.request.distance);
-    const [timer,setTimer]=useState(50);
     //use selector ends here........
 
 
@@ -117,15 +116,15 @@ const Testing=(props)=>{
 
 
 
-                    {/* Me To Vendor Ends Here....... */}
+                    {/* Buyer To Vendor To Vendor Ends Here....... */}
                     <MapViewDirections
                     apikey={MapKey.apikey}
-                    origin={{latitude:latitude_RP,longitude:longitude_RP}}
+                    origin={{latitude:parseFloat(buyer_RP.lat),longitude:parseFloat(buyer_RP.long)}}
                     destination={{latitude:parseFloat(vendor_RP.lat),longitude:parseFloat(vendor_RP.long)}}
                     strokeWidth={7}
                     strokeColor="hotpink"
                     />
-                    {/* Me To Vendor Ends Here....... */}
+                    {/* Buyer  To Vendor Ends Here....... */}
 
 
 
@@ -142,7 +141,7 @@ const Testing=(props)=>{
                 <View style={styles.infoView}>
                     <View style={styles.distanceInfoView}>
                         <Text style={styles.distanceTitle}>Approx Distance</Text>
-                        <Text style={styles.distance}>{parseFloat(distance_RP/1000)+" KM"}</Text>
+                        <Text style={styles.distance}>{parseFloat(distance_RP/1000).toFixed(2)+" KM"}</Text>
                     </View>
                     <View style={styles.distanceInfoView}>
                         <Text style={styles.distanceTitle}>Earning Amount</Text>
@@ -255,4 +254,4 @@ const styles=StyleSheet.create({
     }
 });
 
-export default Testing;
+export default RiderComeView;

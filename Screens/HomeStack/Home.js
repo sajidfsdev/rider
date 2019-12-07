@@ -6,6 +6,9 @@ import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 
+//View imports starts here....
+import RideComeView from '../../Components/HOME/RideComeView';
+
 //changing link checking imports....
 import Color from '../../Constants/Colors';
 import AppLoading from '../../Reusable/AppLoading';
@@ -289,14 +292,12 @@ const Home=props=>{
 
 
 
-    //detecting the committed state starts here....
+    //detecting the Rider Request Has Come state starts here....
     if(available_RP===15)
     {
         mainGUI=(
             <React.Fragment>
-                <View style={styles.container}>
-                    <Text>RIDER IS COMMITTED</Text>
-                </View>
+                <RideComeView />
             </React.Fragment>
         );
     }

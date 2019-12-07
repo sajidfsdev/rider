@@ -5,6 +5,7 @@ export const PASSWORD_CHANGED="PASSWORD_CHANGED";
 //Request related Types starts here.....
 export const SET_AVAILABLE_TRUE="SETAVAILABLETRUE";
 export const SET_AVAILABLE_FALSE="SETAVAILABLEFALSE";
+export const RIDER_REQUEST_COME="RIDEREQUESTCOME";
 
 
 //Geolocation related types starts here.....

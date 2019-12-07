@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import { useSelector,useDispatch } from 'react-redux';
 import * as Types from '../Store/Types/types';
+import * as Actions from '../Store/Actions/Request';
 
 const secondGrid=props=>{
 
@@ -117,6 +118,19 @@ const secondGrid=props=>{
                 type:"RIDER"
             }
         });
+
+        //socket registered opertions starts here.....
+        io.on("RIDECOME",(data)=>{
+            console.log("RIDER REQUEST HAS COME))))))))))))))))))))))))))");
+            console.log(data);
+            console.log("))))))))))))))))))))))))))))))))))))))))))))))))");
+           dispatch(Actions.handleRideCome(
+               JSON.parse(JSON.stringify(data.vendor)),
+               JSON.parse(JSON.stringify(data.buyer)),
+               parseFloat(data.distance)
+           ));
+        });
+        //socket registered operations ends here......
 
         Soc.setIO(io);
         //implementing socket request ends here...........
