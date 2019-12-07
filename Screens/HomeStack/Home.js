@@ -1,13 +1,15 @@
-import React,{ useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import { View,Text,StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import { Slider } from 'react-native-elements';
 import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import { NavigationEvents } from 'react-navigation';
 
 //View imports starts here....
 import RideComeView from '../../Components/HOME/RideComeView';
+import TripOneView from '../../Components/HOME/TripOneView';
 
 //changing link checking imports....
 import Color from '../../Constants/Colors';
@@ -26,7 +28,70 @@ const Home=props=>{
     //redux state starts here......
     const dispatch=useDispatch();
     const available_RP=useSelector(state=>state.request.available);
+    const genBufferring_RP=useSelector(state=>state.request.bufferring);
     //redux state ends here........
+
+
+    //use effect starts here.........
+    useEffect(()=>{
+
+    },[]);
+    //use effect ends here...........
+
+
+    //check request status starts here......
+    const checkRequestStatus=async ()=>{
+        
+         dispatch({type:Types.SET_GEN_BUFFERRING});
+
+      
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                'r-auth-humtoken':token_RP
+            }
+        };
+
+
+       
+        const body=JSON.stringify({
+            riderId:id_RP
+        });
+
+        
+        try
+        {
+            const res=await axios.post(API.server+"/rider/request/checkRequestStatus",body,config);
+
+            if(res)
+            {
+                dispatch({type:Types.END_GEN_BUFFERRING});
+                Alert.alert("RES",res.data.status);
+                if(res.data.status==="TRIPONE")
+                {
+                    dispatch({type:Types.SET_TRIP_ONE});
+                }
+            }
+            else
+            {
+                dispatch({type:Types.END_GEN_BUFFERRING});
+            }
+        }
+        catch(err)
+        {
+            dispatch({type:Types.END_GEN_BUFFERRING});
+            if(err.response)
+            {
+                Alert.alert("NETWORK RESPONSE ERROR",err.response.data.errorMessage);
+            }
+            else
+            {
+                Alert.alert("NETWORK ISSUE",err.message);
+            }
+        }
+       
+    }
+    //check request status ends here........
 
 
     //Get Locations starts here......
@@ -301,11 +366,46 @@ const Home=props=>{
             </React.Fragment>
         );
     }
+    else
+    if(available_RP===20)
+    {
+        mainGUI=(
+            <React.Fragment>
+                <TripOneView />
+            </React.Fragment>
+        );
+    }
+    else
+    if(available_RP===2020)
+    {
+        mainGUI=(
+            <React.Fragment>
+                <AppLoading />
+            </React.Fragment>
+        );
+    }
+    else
+    if(genBufferring_RP===true)
+    {
+        mainGUI=(
+            <React.Fragment>
+                <AppLoading />
+            </React.Fragment>
+        );
+    }
+    
     //detecting the commited state ends here.......
 
     //return statement starts here.....
     return (
         <React.Fragment>
+
+            <NavigationEvents 
+                onDidFocus={()=>{
+                    checkRequestStatus();
+                }}
+            />
+
             {mainGUI}
         </React.Fragment>
     );

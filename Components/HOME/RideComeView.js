@@ -22,6 +22,8 @@ const RiderComeView=(props)=>{
     const vendor_RP=useSelector(state=>state.request.vendor);
     const buyer_RP=useSelector(state=>state.request.buyer);
     const distance_RP=useSelector(state=>state.request.distance);
+    const buyerId_RP=useSelector(state=>state.request.id);
+    const outletName_RP=useSelector(state=>state.request.outletName);
     //use selector ends here........
 
 
@@ -79,7 +81,7 @@ const RiderComeView=(props)=>{
                         }}
                     >
                     <MaterialIcon name="store" size={40} color="purple" />
-
+                    <Text style={styles.outletName}>{outletName_RP}</Text>
                     </Marker>
                     {/* Vendor Markers man ends here....... */}
 
@@ -251,6 +253,13 @@ const styles=StyleSheet.create({
         fontFamily:'roboto-regular',
         color:'white',
         fontSize:15
+    },
+
+
+    outletName:{
+        fontFamily:'roboto-regular',
+        fontSize:15,
+        color:"purple"
     }
 });
 

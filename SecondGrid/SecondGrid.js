@@ -127,7 +127,9 @@ const secondGrid=props=>{
            dispatch(Actions.handleRideCome(
                JSON.parse(JSON.stringify(data.vendor)),
                JSON.parse(JSON.stringify(data.buyer)),
-               parseFloat(data.distance)
+               parseFloat(data.distance),
+               data.id,
+               data.outletName
            ));
         });
         //socket registered operations ends here......

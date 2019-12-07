@@ -5,6 +5,10 @@ const initialState={
     //1 OFF
     //10 ON
     //15 RIDER REQUEST COME
+    //20 TRIP ONE
+    //25 TRIP TWO
+    //2020 BUFFERRING
+    bufferring:false,
     request:{},
     committed:false,
     latitude:null,
@@ -12,7 +16,9 @@ const initialState={
 
     vendor:null,
     buyer:null,
-    distance:null
+    distance:null,
+    id:null,
+    outletName:''
 };
 
 const Request=(state=initialState,action)=>{
@@ -53,7 +59,46 @@ const Request=(state=initialState,action)=>{
                 available:15,
                 vendor:JSON.parse(JSON.stringify(action.payload.vendor)),
                 buyer:JSON.parse(JSON.stringify(action.payload.buyer)),
-                distance:action.payload.distance
+                distance:action.payload.distance,
+                id:action.payload.id,
+                outletName:action.payload.outletName
+            };
+            break;
+
+        case Types.RIDE_ACCEPT_TIME_OVER:
+            return {
+                ...state,
+                available:10
+            };
+            break;
+
+
+        case Types.SET_BUFFERING_CODE:
+            return {
+                ...state,
+                available:2020
+            };
+            break;
+
+        case Types.SET_TRIP_ONE:
+            return {
+                ...state,
+                available:20
+            };
+            break;
+
+        case Types.SET_GEN_BUFFERRING:
+            return {
+                ...state,
+                bufferring:true
+            };
+            break;
+
+
+        case Types.END_GEN_BUFFERRING:
+            return {
+                ...state,
+                bufferring:false
             };
             break;
     }

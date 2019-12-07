@@ -1,7 +1,7 @@
 import * as Types from '../Types/types';
 
 //handle Ride come starts here....
-export const handleRideCome=(vendor,buyer,distance)=>{
+export const handleRideCome=(vendor,buyer,distance,id,outletName)=>{
 
     //dispatch return starts here....
     return (dispatch)=>{
@@ -10,7 +10,9 @@ export const handleRideCome=(vendor,buyer,distance)=>{
             payload:{
                 vendor:JSON.parse(JSON.stringify(vendor)),
                 buyer:JSON.parse(JSON.stringify(buyer)),
-                distance:distance
+                distance:distance,
+                id:id,
+                outletName:outletName
             }
         });
     }
