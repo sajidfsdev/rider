@@ -1,9 +1,9 @@
 {
   "expoServerPort": 3006,
   "packagerPort": 19001,
-  "packagerPid": 5892,
-  "expoServerNgrokUrl": "https://su-3gd.anonymous.rider.exp.direct",
-  "packagerNgrokUrl": "https://packager.su-3gd.anonymous.rider.exp.direct",
-  "ngrokPid": 3228,
+  "packagerPid": 5252,
+  "expoServerNgrokUrl": "https://v9-9zr.anonymous.rider.exp.direct",
+  "packagerNgrokUrl": "https://packager.v9-9zr.anonymous.rider.exp.direct",
+  "ngrokPid": 340,
   "devToolsPort": 19002
 }

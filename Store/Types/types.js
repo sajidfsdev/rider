@@ -14,5 +14,7 @@ export const SET_TRIP_TWO="SETTRIPTWO";
 export const SET_GEN_BUFFERRING="SETGENBUFFERRING";
 export const END_GEN_BUFFERRING="ENDGENBUFFERRING";
 
+export const SET_GEN_COMPLETE_REQUEST="SETGENCOMPLETEREQUEST";
+
 //Geolocation related types starts here.....
 export const SET_MY_LOCATION="SETMYLOCATION";

@@ -61,10 +61,14 @@ const ShrinkingButton=(props)=>{
                         console.log("MY REQUEST HAS BEEN APPROVED");
                         console.log("PLEASE CHECK THE BUYERID received");
                         console.log(res.data.buyerId);
+                        console.log("HOHOHOOHOHOOHOHOOHOHOHOOHOH");
+                        console.log("PLEASE CHECK THE WHOLE REQUEST");
+                        console.log(res.data.request);
                         dispatch({
                             type:Types.SET_TRIP_ONE,
                             payload:{
-                                buyerId:res.data.buyerId
+                                buyerId:res.data.buyerId,
+                                request:JSON.parse(JSON.stringify(res.data.request))
                             }
                         });
                     }

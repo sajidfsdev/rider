@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 import { YellowBox,Alert } from 'react-native';
 import DrawerNav from '../Navigations/Drawer';
 import OpenSocket from 'socket.io-client';
@@ -16,8 +16,105 @@ const secondGrid=props=>{
     //redux state starts here......
     const id_RP=useSelector(state=>state.auth.id);
     const token_RP=useSelector(state=>state.auth.token);
+    const completeRequest_RP=useSelector(state=>state.request.completeRequest);
 
     //redux state ends here........
+
+
+    //use effect starts here.......
+    useEffect(()=>{
+        //Nav Monitoring starts here..........
+        navigator.geolocation.watchPosition(
+            position => {
+            console.log("////////////////////////////////////");
+            console.log("///////////POSITION DETECTED////////");
+             console.log(position.coords.latitude);
+             console.log(position.coords.longitude);
+
+             //send location to buyer starts here......
+             if(completeRequest_RP.status==="TRIPONE")
+             {
+                 Alert.alert("TRIP ONE DETECTED");
+                 sendLocationToBuyer(position.coords.latitude,position.coords.longitude);
+             }
+             //send location to buyer ends here........
+    
+             //secind location to server starts here.......
+                sendPosToServer(position.coords.latitude,position.coords.longitude);
+             //sending location to server ends here........
+             dispatch({
+                 type:Types.SET_MY_LOCATION,
+                 payload:{
+                     latitude:position.coords.latitude,
+                     longitude:position.coords.longitude
+                 }
+             });
+            console.log("/////////////////////////////////////");
+            console.log("/////////////////////////////////////");
+            }, 
+            error => console.log(error),
+            { 
+              enableHighAccuracy: true,
+              timeout: 20000,
+              maximumAge: 1000,
+              distanceFilter: 0.2
+            }
+           );
+        //Nav Monitoring ends here............
+    },[]);
+    //use effect ends here.........
+
+
+
+    //Handle Send Location To Buyer Starts Here........
+    const sendLocationToBuyer=async (lat,long)=>{
+
+        const buyerId=completeRequest_RP.buyerId;
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                'r-auth-humtoken':token_RP
+            }
+        };
+
+        const body=JSON.stringify({
+            buyerId:buyerId,
+            lat:parseFloat(lat),
+            long:parseFloat(long)
+        });
+
+
+        //try catch starts here........
+        try
+        {
+            const res=axios.post(API.server+"/rider/request/sendMyLocToBuyer",body,config);
+
+            if(res)
+            {
+                Alert.alert("LOC SEND TO BUYER SUCCESSFULLY");
+            }
+            else
+            {
+                Alert.alert("Failed sendLOC","NETWORK ERROR");
+            }
+        }
+        catch(err)
+        {
+            if(err.response)
+            {
+                Alert.alert("Failed sendLOC",err.response.data.errorMessage);
+            }
+            else
+            {
+                Alert.alert("Failed Send LOC",err.message);
+            }
+        }
+        //try catch ens here...........
+    }
+    //Handle Send Location To Buyer Ends Here.........
+
+
+
 
     //sending updated location to server starts here......
     const sendPosToServer=async (latitude,longitude)=>{
@@ -49,9 +146,7 @@ const secondGrid=props=>{
             }
             else
             {
-                return resp.status(500).json({
-                    errorMessage:"Network Error Detected"
-                });
+                Alert.alert("Failed","NETWORK ERROR");
             }
         }
         catch(err)
@@ -71,34 +166,7 @@ const secondGrid=props=>{
 
 
     //Navigating the position starts here........
-    navigator.geolocation.watchPosition(
-        position => {
-        console.log("////////////////////////////////////");
-        console.log("///////////POSITION DETECTED////////");
-         console.log(position.coords.latitude);
-         console.log(position.coords.longitude);
-
-         //secind location to server starts here.......
-            sendPosToServer(position.coords.latitude,position.coords.longitude);
-         //sending location to server ends here........
-         dispatch({
-             type:Types.SET_MY_LOCATION,
-             payload:{
-                 latitude:position.coords.latitude,
-                 longitude:position.coords.longitude
-             }
-         });
-        console.log("/////////////////////////////////////");
-        console.log("/////////////////////////////////////");
-        }, 
-        error => console.log(error),
-        { 
-          enableHighAccuracy: true,
-          timeout: 20000,
-          maximumAge: 1000,
-          distanceFilter: 10
-        }
-       );
+    
     //Navigating the position ends here..........
 
     
@@ -131,6 +199,17 @@ const secondGrid=props=>{
                data.id,
                data.outletName
            ));
+        });
+
+        io.on("RECEIVEBUYERLOC",(data)=>{
+
+            console.log("BUYER LOC RECEIVED");
+            console.log("++++++++++++++++++++");
+            console.log(data.lat);
+            console.log(data.long);
+            console.log("--------------------");
+
+            dispatch(Actions.handleSetBuyerLatLongAction(data.lat,data.long));
         });
         //socket registered operations ends here......
 

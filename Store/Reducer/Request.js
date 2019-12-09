@@ -2,6 +2,7 @@ import * as Types from '../Types/types';
 
 const initialState={
     available:1,
+    completeRequest:{},
     //1 OFF
     //10 ON
     //15 RIDER REQUEST COME
@@ -82,10 +83,14 @@ const Request=(state=initialState,action)=>{
             break;
 
         case Types.SET_TRIP_ONE:
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            console.log(JSON.parse(JSON.stringify(action.payload.request)));
             return {
                 ...state,
                 available:20,
-                buyerId:action.payload.buyerId
+                buyerId:action.payload.buyerId,
+                completeRequest:JSON.parse(JSON.stringify(action.payload.request))
             };
             break;
 
@@ -106,12 +111,24 @@ const Request=(state=initialState,action)=>{
 
         case Types.REFRESH_REQUEST_STATUS:
            
+        console.log("REDUX WHOLE REQUEST SETTING");
+        console.log("=+=+=+=+=+=+=+=+");
+        console.log(JSON.parse(JSON.stringify(action.payload.request)));
             return {
                 ...state,
                 available:action.payload.available,
                 id:action.payload.requestId,
                 buyerId:action.payload.buyerId,
-                buyer:JSON.parse(JSON.stringify(action.payload.buyer))
+                buyer:JSON.parse(JSON.stringify(action.payload.buyer)),
+                completeRequest:JSON.parse(JSON.stringify(action.payload.request))
+            };
+            break;
+
+
+        case Types.SET_GEN_COMPLETE_REQUEST:
+            return {
+                ...state,
+                completeRequest:JSON.parse(JSON.stringify(action.payload.completeRequest))
             };
             break;
     }

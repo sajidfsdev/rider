@@ -75,6 +75,9 @@ const Home=props=>{
                 console.log("BUYER LAT LONG");
                 console.log(res.data.buyerLat);
                 console.log(res.data.buyerLong);
+                console.log("HEY SAJID CHECK WHOLE REQUEST");
+                console.log("==========================");
+                console.log(res.data.request);
                 if(res.data.status==="TRIPONE")
                 {
                     dispatch({
@@ -83,6 +86,7 @@ const Home=props=>{
                             available:20,
                             requestId:res.data.requestId,
                             buyerId:res.data.buyerId,
+                            request:JSON.parse(JSON.stringify(res.data.request)),
                             buyer:{
                                 lat:res.data.buyerLat,
                                 long:res.data.buyerLong
