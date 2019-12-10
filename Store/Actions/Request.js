@@ -117,17 +117,31 @@ export const sendMyLocBookToBuyer=(lat,long)=>{
         }///////////////////////////////////////////////
 
 
-       
-
-       
-       
-
-        
-
-
-
         //copie code ends here.........
     }
     //return ends here............
 }
 //Handle send Loc BOOk to buyer ends here............
+
+
+
+
+
+
+//Handle set request UPDATE status starts here........
+export const handleUpdateCompleteRequestStatus=(status)=>{
+
+    //return starts here......
+    return (dispatch,getState)=>{
+        const req=JSON.parse(JSON.stringify(getState().request.completeRequest));
+        req.status=status;
+        dispatch({
+            type:Types.SET_GEN_COMPLETE_REQUEST,
+            payload:{
+                completeRequest:JSON.parse(JSON.stringify(req))
+            }
+        });
+    }
+    //return ends here.........
+}
+//Handle set request UPDATE status ends here..........

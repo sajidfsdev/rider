@@ -1,3 +1,3 @@
 export default {
-    apikey:"GOOGLE MAP API KEY"
+    apikey:"API KEY"
 };

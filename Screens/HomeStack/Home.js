@@ -10,12 +10,14 @@ import { NavigationEvents } from 'react-navigation';
 //View imports starts here....
 import RideComeView from '../../Components/HOME/RideComeView';
 import TripOneView from '../../Components/HOME/TripOneView';
+import ReceiveCashView from '../../Components/HOME/ReceiveCashView';
 
 //changing link checking imports....
 import Color from '../../Constants/Colors';
 import AppLoading from '../../Reusable/AppLoading';
 import API from '../../Constants/API';
 import * as Types from '../../Store/Types/types';
+import * as Actions from '../../Store/Actions/Request';
 
 const Home=props=>{
 
@@ -29,6 +31,7 @@ const Home=props=>{
     const dispatch=useDispatch();
     const available_RP=useSelector(state=>state.request.available);
     const genBufferring_RP=useSelector(state=>state.request.bufferring);
+    const completeRequest_RP=useSelector(state=>state.request.completeRequest);
     //redux state ends here........
 
 
@@ -80,6 +83,8 @@ const Home=props=>{
                 console.log(res.data.request);
                 if(res.data.status==="TRIPONE")
                 {
+                    //Also dispatching action to Update My Request....
+                    //Alos dispatching action to Updae My Request.....
                     dispatch({
                         type:Types.REFRESH_REQUEST_STATUS,
                         payload:{
@@ -94,6 +99,13 @@ const Home=props=>{
                         }
                     });
                 }
+
+                //ispatching updating request status starts here......
+                if(res.data.status==="RECEIVECASH")
+                {
+                    dispatch(Actions.handleUpdateCompleteRequestStatus(res.data.status));
+                }
+                //Dispatching Updating complete request status ends....
             }
             else
             {
@@ -407,7 +419,24 @@ const Home=props=>{
             </React.Fragment>
         );
     }
-    else
+    
+
+    //STATUS BASED GENERATIONS STARTS HERE.........
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    if(completeRequest_RP.status==="RECEIVECASH")
+    {
+        mainGUI=(
+            <React.Fragment>
+                <ReceiveCashView />
+            </React.Fragment>
+        );
+    }
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    //STATUS BASED GENERATION ENDS HERE...........
+
+
     if(genBufferring_RP===true)
     {
         mainGUI=(

@@ -228,6 +228,11 @@ const secondGrid=props=>{
                 }
             });
         });
+
+
+        io.on("RECEIVECASH",(data)=>{
+            dispatch(Actions.handleUpdateCompleteRequestStatus("RECEIVECASH"));
+        });
         //socket registered operations ends here......
 
         Soc.setIO(io);

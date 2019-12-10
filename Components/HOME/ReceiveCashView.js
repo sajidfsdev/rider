@@ -1,33 +1,15 @@
-import React,{ useState } from 'react';
+import React from 'react';
 import { View,Text,StyleSheet,ScrollView,TouchableOpacity } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useSelector } from 'react-redux';
 
 //change links imports......
-import API from '../Constants/API';
-import Color from '../Constants/Colors';
+import API from '../../Constants/API';
+import Color from '../../Constants/Colors';
 
-const Testing=(props)=>{
+const ReceiveComeView=(props)=>{
 
-    //temporary state starts here.....
-    const [completeRequest_RP,setCompleteRequest_RP]=useState({
-        products:[
-            {
-                imgArr:["x953r56bgk1tb0pg3cindone.jpg"],
-                name:"Cinderella Tale",
-                price:250,
-                qty:2
-            },
-
-            {
-                imgArr:["x953r56bgk1tb8kqurado one.png"],
-                name:"Rado Watch",
-                price:5000,
-                qty:1
-            }
-           
-        ]
-    });
-    //temporary state ends here.......
+   const completeRequest_RP=useSelector(state=>state.request.completeRequest);
 
 
     //Compute Bill Starts Here......
@@ -202,4 +184,4 @@ const styles=StyleSheet.create({
     }
 });
 
-export default Testing;
+export default ReceiveComeView;
