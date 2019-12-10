@@ -1,4 +1,8 @@
 import * as Types from '../Types/types';
+import axios from 'axios';
+import API from '../../Constants/API';
+import { Alert } from 'react-native';
+
 
 //handle Ride come starts here....
 export const handleRideCome=(vendor,buyer,distance,id,outletName)=>{
@@ -45,3 +49,85 @@ export const handleSetBuyerLatLongAction=(lat,long)=>{
     //return ends .....
 }
 //Handle setting buyer lat long ends here.........
+
+
+
+
+
+
+
+
+//Handle send Loc Book to buyer sttarts here.........
+export const sendMyLocBookToBuyer=(lat,long)=>{
+
+    //return starts here..........
+    return async (dispatch,getState)=>{
+        //copied code starts here......
+        const req=getState().request.completeRequest;
+        const token=getState().auth.token;
+        
+        if(req.status==="TRIPONE")
+        {
+            console.log("TRIP ONE DETECTED SUCCESSFULLY");
+            const config={
+                headers:{
+                    'Content-Type':'application/json',
+                    'r-auth-humtoken':token
+                }
+            };
+
+
+            const body=JSON.stringify({
+                buyerId:req.buyerId,
+                lat:parseFloat(lat),
+                long:parseFloat(long)
+            });
+
+                    //try catch starts here........
+        try
+        {
+            const res=await axios.post(API.server+"/rider/request/sendMyLocToBuyer",body,config);
+
+            if(res)
+            {
+                Alert.alert("LOC SEND TOTHE BUYER SUCCESSFULLY");
+            }
+            else
+            {
+                Alert.alert("Failed sendLOC","NETWORK ERROR");
+            }
+        }
+        catch(err)
+        {
+            if(err.response)
+            {
+                Alert.alert("Failed sendLOC",err.response.data.errorMessage);
+            }
+            else
+            {
+                Alert.alert("Failed Send LOC",err.message);
+            }
+        }
+        //try catch ens here...........
+
+        }
+        else
+        {
+            console.log("STATUS TRIP NOT DETECTED");
+        }///////////////////////////////////////////////
+
+
+       
+
+       
+       
+
+        
+
+
+
+        //copie code ends here.........
+    }
+    //return ends here............
+}
+//Handle send Loc BOOk to buyer ends here............

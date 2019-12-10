@@ -18,6 +18,7 @@ const TripOneView=(props)=>{
     const latitude_RP=useSelector(state=>state.request.latitude);
     const longitude_RP=useSelector(state=>state.request.longitude);
     const request_RP=useSelector(state=>state.request.completeRequest);
+    const code_RP=useSelector(state=>state.request.code);
     //redux state ends here.......
 
 
@@ -156,6 +157,18 @@ const TripOneView=(props)=>{
             {/* Bottom Info View ends here...... */}
 
 
+            {/* Security code display starts here..... */}
+            {
+                code_RP===null?null:(
+                    <View style={styles.secParent}>
+                        <Text style={styles.secTitle}>Security Code</Text>
+                        <Text style={styles.sec}>{code_RP}</Text>
+                    </View>
+                )
+            }
+            {/* Security code display ends here....... */}
+
+
             {/* Cancel Button View Starts Here.... */}
             <View style={styles.parent}>
                 <Icon
@@ -273,6 +286,34 @@ const styles=StyleSheet.create({
         justifyContent:'space-between',
         marginTop:10
     },
+
+
+    secParent:{
+        width:'100%',
+        paddingLeft:20,
+        paddingRight:20,
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        marginTop:5,
+        marginBottom:5
+    },
+
+
+    secTitle:{
+        fontFamily:'roboto-regular',
+        fontSize:15,
+        color:'red',
+        fontWeight:'bold'
+    },
+
+
+    sec:{
+        fontFamily:'roboto-regular',
+        fontSize:15,
+        fontWeight:'bold',
+        color:'red'
+    }
 
     
 });

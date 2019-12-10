@@ -20,7 +20,8 @@ const initialState={
     distance:null,
     id:null,
     outletName:'',
-    buyerId:null
+    buyerId:null,
+    code:null
 };
 
 const Request=(state=initialState,action)=>{
@@ -129,6 +130,14 @@ const Request=(state=initialState,action)=>{
             return {
                 ...state,
                 completeRequest:JSON.parse(JSON.stringify(action.payload.completeRequest))
+            };
+            break;
+
+
+        case Types.SET_SECURITY_CODE:
+            return {
+                ...state,
+                code:action.payload.code
             };
             break;
     }

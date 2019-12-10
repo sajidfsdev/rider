@@ -32,11 +32,10 @@ const secondGrid=props=>{
              console.log(position.coords.longitude);
 
              //send location to buyer starts here......
-             if(completeRequest_RP.status==="TRIPONE")
-             {
-                 Alert.alert("TRIP ONE DETECTED");
-                 sendLocationToBuyer(position.coords.latitude,position.coords.longitude);
-             }
+             Alert.alert("POSITION CHAGNHE");
+        // sendLocationToBuyer(position.coords.latitude,position.coords.longitude);
+        dispatch(Actions.sendMyLocBookToBuyer(position.coords.latitude,position.coords.longitude));
+             
              //send location to buyer ends here........
     
              //secind location to server starts here.......
@@ -68,6 +67,13 @@ const secondGrid=props=>{
 
     //Handle Send Location To Buyer Starts Here........
     const sendLocationToBuyer=async (lat,long)=>{
+
+        if(completeRequest_RP.status !== "TRIPONE")
+        {
+            return;
+        }
+
+        Alert.alert("TRIP ONE DETECTED");
 
         const buyerId=completeRequest_RP.buyerId;
         const config={
@@ -208,8 +214,19 @@ const secondGrid=props=>{
             console.log(data.lat);
             console.log(data.long);
             console.log("--------------------");
+            Alert.alert("BUYER LOC RECEIVED");
 
             dispatch(Actions.handleSetBuyerLatLongAction(data.lat,data.long));
+        });
+
+
+        io.on("SECURITYCODECOME",(data)=>{
+            dispatch({
+                type:Types.SET_SECURITY_CODE,
+                payload:{
+                    code:data.code
+                }
+            });
         });
         //socket registered operations ends here......
 
