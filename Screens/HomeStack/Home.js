@@ -10,6 +10,7 @@ import { NavigationEvents } from 'react-navigation';
 //View imports starts here....
 import RideComeView from '../../Components/HOME/RideComeView';
 import TripOneView from '../../Components/HOME/TripOneView';
+import TripTwoView from '../../Components/HOME/TripTwoView';
 import ReceiveCashView from '../../Components/HOME/ReceiveCashView';
 
 //changing link checking imports....
@@ -68,6 +69,16 @@ const Home=props=>{
 
             if(res)
             {
+                //setting complete request starts here.......
+                dispatch({
+                    type:Types.SET_GEN_COMPLETE_REQUEST,
+                    payload:{
+                        completeRequest:JSON.parse(JSON.stringify(res.data.request))
+                    }
+                });
+                //setting complete Request ends here.........
+
+
                 dispatch({type:Types.END_GEN_BUFFERRING});
                 console.log("$%^%$^%$^%$^$^%$^%$^%$^$^%");
                 console.log("please check refreshing response");
@@ -103,6 +114,7 @@ const Home=props=>{
                 //ispatching updating request status starts here......
                 if(res.data.status==="RECEIVECASH")
                 {
+                   
                     dispatch(Actions.handleUpdateCompleteRequestStatus(res.data.status));
                 }
                 //Dispatching Updating complete request status ends....
@@ -432,6 +444,16 @@ const Home=props=>{
             </React.Fragment>
         );
     }
+    else
+    if(completeRequest_RP.status==="TRIPTWO")
+    {
+        mainGUI=(
+            <React.Fragment>
+                <TripTwoView />
+            </React.Fragment>
+        );
+    }
+    
     //////////////////////////////////////////////
     //////////////////////////////////////////////
     //STATUS BASED GENERATION ENDS HERE...........

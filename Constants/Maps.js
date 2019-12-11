@@ -1,3 +1,3 @@
 export default {
-    apikey:"API KEY"
+    apikey:"GOOGLE API KEY FOR PRODUCTION ENV"
 };
