@@ -17,6 +17,7 @@ const secondGrid=props=>{
     const id_RP=useSelector(state=>state.auth.id);
     const token_RP=useSelector(state=>state.auth.token);
     const completeRequest_RP=useSelector(state=>state.request.completeRequest);
+    const available_RP=useSelector(state=>state.request.available);
 
     //redux state ends here........
 
@@ -125,6 +126,14 @@ const secondGrid=props=>{
     //sending updated location to server starts here......
     const sendPosToServer=async (latitude,longitude)=>{
 
+        //Please remove this code if crash starts here....
+        // if(available_RP !== 10)
+        // {
+        //     Alert.alert("AVAILABLE NOT 10");
+        //     return;
+        // }
+        //Please remove this code is crash ends here......
+
         //const config......
         const config={
             headers:{
@@ -232,6 +241,10 @@ const secondGrid=props=>{
 
         io.on("RECEIVECASH",(data)=>{
             dispatch(Actions.handleUpdateCompleteRequestStatus("RECEIVECASH"));
+        });
+
+        io.on("TRIPTHREE",(data)=>{
+            dispatch(Actions.handleUpdateCompleteRequestStatus("TRIPTHREE"));
         });
         //socket registered operations ends here......
 

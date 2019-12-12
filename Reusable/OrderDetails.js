@@ -1,83 +1,23 @@
 import React,{ useState } from 'react';
 import { View,Text,StyleSheet,ScrollView,TouchableOpacity, Alert } from 'react-native';
 import AutoHeightImage from 'react-native-auto-height-image';
-import { useSelector,useDispatch } from 'react-redux';
+import Color from '../Constants/Colors';
+import API from '../Constants/API';
 
-//change links imports......
-import API from '../../Constants/API';
-import axios from 'axios';
-import AppLoaing from '../../Reusable/AppLoading';
-import * as Types from '../../Store/Types/types';
-import * as Actions from '../../Store/Actions/Request';
-import Color from '../../Constants/Colors';
+//props.request
+//props.back
 
-const ReceiveComeView=(props)=>{
+const OrderDetailsView=(props)=>{
 
-    const dispatch=useDispatch();
 
     const [appState,setAppState]=useState(1);//1 normal 2..loading
 
-   const completeRequest_RP=useSelector(state=>state.request.completeRequest);
-   const token_RP=useSelector(state=>state.auth.token);
-
-
-   //Hanle cash receiving starts here......
-   const handleCashReceiving=async ()=>{
-
-    setAppState(2);
-        //config setup......
-        const config={
-            headers:{
-                'Content-Type':'application/json',
-                'r-auth-humtoken':token_RP
-            }
-        };
-
-
-        //body starts here.....
-        const body=JSON.stringify({
-            requestId:completeRequest_RP._id
-        });
-
-
-        //try catch starts here........
-        try
-        {
-            const res=await axios.post(API.server+"/rider/request/cashReceived",body,config);
-
-            if(res)
-            {
-                dispatch(Actions.handleSetCompleteRequestOrderId(res.data.orderId));
-                setAppState(1);
-                dispatch(Actions.handleUpdateCompleteRequestStatus("TRIPTWO"));
-            }   
-            else
-            {
-                setAppState(1);
-                Alert.alert("Failed","Network Error");
-            }
-        }
-        catch(err)
-        {
-            setAppState(1);
-            if(err.response)
-            {
-                Alert.alert("Failed",err.response.data.errorMessage);
-            }
-            else
-            {
-                Alert.alert("Failed",err.message);
-            }
-        }
-        //try catch ends here..........
-   }
-   //Handle cash receiving ends here.......
 
 
     //Compute Bill Starts Here......
     const computeBill=()=>{
         let bill=0;
-        completeRequest_RP.products.forEach(element => {
+        props.request.products.forEach(element => {
                 bill=parseInt(bill+(element.qty*element.price))
         });
         return bill;
@@ -88,8 +28,6 @@ const ReceiveComeView=(props)=>{
     //Main GUI man starts here.........
     let mainGUI=null;
 
-    if(appState===1)
-    {
         mainGUI=(
             <React.Fragment>
                 <ScrollView style={styles.container}>
@@ -103,9 +41,16 @@ const ReceiveComeView=(props)=>{
                 {/* Title View Ends Here........ */}
 
 
+                {/* Order ID View Starts Here...... */}
+                <View style={styles.orderIdView}>
+                    <Text style={styles.orderId}>ORDER ID: {props.request.orderId}</Text>
+                </View>
+                {/* Order ID View ends here........ */}
+
+
                 {/* Item Number Show Starts.... */}
                 <View style={styles.subTitleView}>
-                    <Text style={styles.subTitle}>{"Order Contains "+completeRequest_RP.products.length+" Item"}</Text>
+                    <Text style={styles.subTitle}>{"Order Contains "+props.request.products.length+" Item"}</Text>
                 </View>
                 {/* Item Number Show ends ..... */}
 
@@ -116,7 +61,7 @@ const ReceiveComeView=(props)=>{
 
                     {/* Products Details Starts Here..... */}
                     {
-                        completeRequest_RP.products.map((elem,index)=>{
+                        props.request.products.map((elem,index)=>{
                             return (
                                 <View key={index} style={styles.boxes}>
                                     <AutoHeightImage 
@@ -153,24 +98,15 @@ const ReceiveComeView=(props)=>{
 
 
                 {/* Received Cash Button starts here....... */}
-                <TouchableOpacity onPress={handleCashReceiving} style={styles.to} activeOpacity={0.5}>
-                    <Text style={styles.toText}>Cash Received</Text>
+                <TouchableOpacity onPress={props.back} style={styles.to} activeOpacity={0.5}>
+                    <Text style={styles.toText}>GO BACK</Text>
                 </TouchableOpacity>
                 {/* Received Cash Button Ends Here......... */}
 
             </ScrollView>
             </React.Fragment>
         );
-    }
-    else
-    if(appState===2)
-    {
-        mainGUI=(
-            <React.Fragment>
-                <AppLoaing />
-            </React.Fragment>
-        );
-    }
+    
     //Main GUI man ends here...........
 
     //return starts here.....
@@ -266,7 +202,22 @@ const styles=StyleSheet.create({
         fontFamily:'roboto-regular',
         fontSize:15,
         color:'white'
+    },
+
+    orderIdView:{
+        width:'100%',
+        padding:3,
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+
+
+    orderId:{
+        fontFamily:'roboto-regular',
+        fontSize:17,
+        color:Color.welcomeBack
     }
 });
 
-export default ReceiveComeView;
+export default OrderDetailsView;

@@ -19,3 +19,4 @@ export const SET_SECURITY_CODE="SETSECURITYCODE";
 
 //Geolocation related types starts here.....
 export const SET_MY_LOCATION="SETMYLOCATION";
+

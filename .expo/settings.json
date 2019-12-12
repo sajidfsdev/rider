@@ -1,8 +1,8 @@
 {
+  "urlRandomness": "cj-btg",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "h9-vmw",
   "https": false
 }

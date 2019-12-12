@@ -12,6 +12,7 @@ import RideComeView from '../../Components/HOME/RideComeView';
 import TripOneView from '../../Components/HOME/TripOneView';
 import TripTwoView from '../../Components/HOME/TripTwoView';
 import ReceiveCashView from '../../Components/HOME/ReceiveCashView';
+import TripThreeView from '../../Components/HOME/TripThreeView';
 
 //changing link checking imports....
 import Color from '../../Constants/Colors';
@@ -40,7 +41,7 @@ const Home=props=>{
     useEffect(()=>{
 
     },[]);
-    //use effect ends here...........
+    //use effect ends here..........
 
 
     //check request status starts here......
@@ -450,6 +451,15 @@ const Home=props=>{
         mainGUI=(
             <React.Fragment>
                 <TripTwoView />
+            </React.Fragment>
+        );
+    }
+    else
+    if(completeRequest_RP.status==="TRIPTHREE")
+    {
+        mainGUI=(
+            <React.Fragment>
+                <TripThreeView />
             </React.Fragment>
         );
     }

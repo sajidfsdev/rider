@@ -10,7 +10,7 @@ import AppLoading from '../../Reusable/AppLoading';
 import Color from '../../Constants/Colors';
 import OrderDetailsView from '../../Reusable/OrderDetails';
 
-const TripTwoView=(props)=>{
+const TripThreeView=(props)=>{
 
     //state management starts here.....
     const [mapRef,setMapRef]=useState();
@@ -40,7 +40,7 @@ const TripTwoView=(props)=>{
 
     //Handle Phone Call starts here......
     const handlePhoneCall=()=>{
-        const str="tel:"+request_RP.vendorPh;
+        const str="tel:"+request_RP.buyerPh;
         Linking.openURL(str);
     }
     //Handle Phone Call ends here........
@@ -78,7 +78,7 @@ const TripTwoView=(props)=>{
             {/* Title View Starts Here..... */}
             <View style={styles.titleView}>
                 <View style={styles.box}>
-                    <Text style={styles.title}>GO TO VENDOR</Text>
+                    <Text style={styles.title}>Deliver Product</Text>
                 </View>
             </View>
             {/* Title View Ends Here....... */}
@@ -113,13 +113,13 @@ const TripTwoView=(props)=>{
 
 
                     <Marker
-                        title="VENDOR"
+                        title="BUYER"
                         coordinate={{
-                            latitude:parseFloat(request_RP.vendorLat),
-                            longitude:parseFloat(request_RP.vendorLong)
+                            latitude:parseFloat(request_RP.buyerLat),
+                            longitude:parseFloat(request_RP.buyerLong)
                         }}
                     >
-                        <Icon name="store" size={40} color="green" />
+                        <Icon name="person-pin" size={40} color="green" />
                     </Marker>
                     {/* Marker Section ends here...... */}
 
@@ -128,7 +128,7 @@ const TripTwoView=(props)=>{
                     <MapViewDirections
                     apikey={MapKey.apikey}
                     origin={{latitude:parseFloat(latitude_RP),longitude:parseFloat(longitude_RP)}}
-                    destination={{latitude:parseFloat(request_RP.vendorLat),longitude:parseFloat(request_RP.vendorLong)}}
+                    destination={{latitude:parseFloat(request_RP.buyerLat),longitude:parseFloat(request_RP.buyerLong)}}
                     strokeWidth={7}
                     strokeColor="hotpink"
                     />
@@ -144,14 +144,14 @@ const TripTwoView=(props)=>{
                     
                     {/* Buyer Name View Starts.... */}
                     <View style={styles.nameView}>
-                        <Text style={styles.nameTitle}>Venor's Name</Text>
-                        <Text style={styles.name}>{request_RP.vendorName}</Text>
+                        <Text style={styles.nameTitle}>Buyer's Name</Text>
+                        <Text style={styles.name}>{request_RP.buyerName}</Text>
                     </View>
                     {/* Buyer Name View Ends...... */}
 
                     {/* Buyer PH View Starts.... */}
                     <View style={styles.nameView}>
-                        <Text style={styles.nameTitle}>{request_RP.vendorPh}</Text>
+                        <Text style={styles.nameTitle}>{request_RP.buyerPh}</Text>
                         <Text style={styles.name}>
                             <Icon 
                                 name="phone-forwarded"
@@ -320,4 +320,4 @@ const styles=StyleSheet.create({
     
 });
 
-export default TripTwoView;
+export default TripThreeView;

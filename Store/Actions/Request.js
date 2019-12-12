@@ -66,9 +66,9 @@ export const sendMyLocBookToBuyer=(lat,long)=>{
         const req=getState().request.completeRequest;
         const token=getState().auth.token;
         
-        if(req.status==="TRIPONE")
+        if(req.status==="TRIPONE" || req.status==="TRIPTWO" || req.status==="TRIPTHREE")
         {
-            console.log("TRIP ONE DETECTED SUCCESSFULLY");
+            console.log("TRIP ONE/TWO DETECTED SUCCESSFULLY");
             const config={
                 headers:{
                     'Content-Type':'application/json',
@@ -145,3 +145,26 @@ export const handleUpdateCompleteRequestStatus=(status)=>{
     //return ends here.........
 }
 //Handle set request UPDATE status ends here..........
+
+
+
+
+
+//Handle setting complete reuest Order Id starts.....
+export const handleSetCompleteRequestOrderId=(orderId)=>{
+
+    //return starts here....
+    return (dispatch,getState)=>{
+        const completeRequest=JSON.parse(JSON.stringify(getState().request.completeRequest));
+        completeRequest.orderId=orderId;
+
+        dispatch({
+            type:Types.SET_GEN_COMPLETE_REQUEST,
+            payload:{
+                completeRequest:JSON.parse(JSON.stringify(completeRequest))
+            }
+        });
+    }
+    //return ends here......
+}
+//Handle setting Complete request Order Id ends here..
