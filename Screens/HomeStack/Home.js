@@ -13,6 +13,7 @@ import TripOneView from '../../Components/HOME/TripOneView';
 import TripTwoView from '../../Components/HOME/TripTwoView';
 import ReceiveCashView from '../../Components/HOME/ReceiveCashView';
 import TripThreeView from '../../Components/HOME/TripThreeView';
+import ShowBillView from '../../Components/HOME/ShowBill';
 
 //changing link checking imports....
 import Color from '../../Constants/Colors';
@@ -460,6 +461,15 @@ const Home=props=>{
         mainGUI=(
             <React.Fragment>
                 <TripThreeView />
+            </React.Fragment>
+        );
+    }
+    else
+    if(completeRequest_RP.status==="SHOWBILL")
+    {
+        mainGUI=(
+            <React.Fragment>
+                <ShowBillView />
             </React.Fragment>
         );
     }

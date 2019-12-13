@@ -145,10 +145,10 @@ const RiderComeView=(props)=>{
                         <Text style={styles.distanceTitle}>Approx Distance</Text>
                         <Text style={styles.distance}>{parseFloat(distance_RP/1000).toFixed(2)+" KM"}</Text>
                     </View>
-                    <View style={styles.distanceInfoView}>
+                    {/* <View style={styles.distanceInfoView}>
                         <Text style={styles.distanceTitle}>Earning Amount</Text>
                         <Text style={styles.distance}>{Math.floor(((parseFloat(distance_RP/1000))*8.13))+" Rs"}</Text>
-                    </View>
+                    </View> */}
                 </View>
                 {/* Info View Ends Here......... */}
 

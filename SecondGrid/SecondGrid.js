@@ -246,6 +246,14 @@ const secondGrid=props=>{
         io.on("TRIPTHREE",(data)=>{
             dispatch(Actions.handleUpdateCompleteRequestStatus("TRIPTHREE"));
         });
+
+        io.on("SHOWBILL",(data)=>{
+            console.log("DATA SHOW BILL COME");
+            console.log("*********************");
+            console.log(data.data);
+            console.log("**********************");
+            dispatch(Actions.handleSetStatusAsShowBill(data.data));
+        });
         //socket registered operations ends here......
 
         Soc.setIO(io);

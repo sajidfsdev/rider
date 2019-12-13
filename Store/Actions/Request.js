@@ -168,3 +168,28 @@ export const handleSetCompleteRequestOrderId=(orderId)=>{
     //return ends here......
 }
 //Handle setting Complete request Order Id ends here..
+
+
+
+
+
+//Handle Show Bill Starts Here............
+export const handleSetStatusAsShowBill=(fare)=>{
+
+    //return starts here......
+    return (dispatch,getState)=>{
+        const completeRequest=JSON.parse(JSON.stringify(getState().request.completeRequest));
+        completeRequest.fare=JSON.parse(JSON.stringify(fare));
+        completeRequest.status="SHOWBILL";
+
+        dispatch({
+            type:Types.SET_GEN_COMPLETE_REQUEST,
+            payload:{
+                completeRequest:JSON.parse(JSON.stringify(completeRequest))
+            }
+        });        
+    }
+    //return ends here........
+
+}
+//Handle Show Bill Ends Here..............

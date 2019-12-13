@@ -21,6 +21,7 @@ const ShrinkingButton=(props)=>{
     const buyerLong=useSelector(state=>state.request.buyer.long);
     const riderId=useSelector(state=>state.auth.id);
     const token_RP=useSelector(state=>state.auth.token);
+    const distance=useSelector(state=>state.request.distance);
     //state management ends here......
 
 
@@ -48,8 +49,10 @@ const ShrinkingButton=(props)=>{
                 };
                 console.log("config established");
 
+            
+
                 //body starts here....
-                const body=JSON.stringify({requestId,riderLat,riderLong,riderId,buyerLat,buyerLong});
+                const body=JSON.stringify({requestId,riderLat,riderLong,riderId,buyerLat,buyerLong,distance});
                 console.log("body established");
                 //try catch starts here..................
                 try
