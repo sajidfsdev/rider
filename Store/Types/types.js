@@ -17,6 +17,9 @@ export const END_GEN_BUFFERRING="ENDGENBUFFERRING";
 export const SET_GEN_COMPLETE_REQUEST="SETGENCOMPLETEREQUEST";
 export const SET_SECURITY_CODE="SETSECURITYCODE";
 
+export const CLEAR_ALL_LOGS="CLEARALLLOGS";
+
 //Geolocation related types starts here.....
 export const SET_MY_LOCATION="SETMYLOCATION";
+
 

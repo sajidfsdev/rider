@@ -140,6 +140,26 @@ const Request=(state=initialState,action)=>{
                 code:action.payload.code
             };
             break;
+
+        case Types.CLEAR_ALL_LOGS:
+            return {
+                ...state,
+                //copied code starts here........
+                available:1,
+                completeRequest:{},
+                bufferring:false,
+                request:{},
+                committed:false,
+                vendor:null,
+                buyer:null,
+                distance:null,
+                id:null,
+                outletName:'',
+                buyerId:null,
+                code:null
+                //copied code ends here..........
+            }
+            break;
     }
     //switch ends here......
 

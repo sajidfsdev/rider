@@ -14,6 +14,7 @@ import TripTwoView from '../../Components/HOME/TripTwoView';
 import ReceiveCashView from '../../Components/HOME/ReceiveCashView';
 import TripThreeView from '../../Components/HOME/TripThreeView';
 import ShowBillView from '../../Components/HOME/ShowBill';
+import FinishView from '../../Components/HOME/FinishView';
 
 //changing link checking imports....
 import Color from '../../Constants/Colors';
@@ -470,6 +471,15 @@ const Home=props=>{
         mainGUI=(
             <React.Fragment>
                 <ShowBillView />
+            </React.Fragment>
+        );
+    }
+    else
+    if(completeRequest_RP.status==="FINISH")
+    {
+        mainGUI=(
+            <React.Fragment>
+                <FinishView />
             </React.Fragment>
         );
     }
